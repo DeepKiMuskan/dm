@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coming Soon</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      color: #fff;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .time-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .time-box span {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .time-box label {
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Coming Soon</h1>
+  <p>We are launching on:</p>
+  <p id="launch-date"></p>
+  <div class="countdown">
+    <div class="time-box">
+      <span id="days">00</span>
+      <label>Days</label>
+    </div>
+    <div class="time-box">
+      <span id="hours">00</span>
+      <label>Hours</label>
+    </div>
+    <div class="time-box">
+      <span id="minutes">00</span>
+      <label>Minutes</label>
+    </div>
+    <div class="time-box">
+      <span id="seconds">00</span>
+      <label>Seconds</label>
+    </div>
+  </div>
+
+  <script>
+    // Set the launch date
+    const launchDate = new Date("December 31, 2024 23:59:59").getTime();
+    document.getElementById("launch-date").textContent = "December 31, 2024 23:59:59";
+
+    // Countdown timer
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const timeLeft = launchDate - now;
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        document.querySelector('.countdown').innerHTML = '<p>We are live now!</p>';
+        return;
+      }
+
+      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
+      document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
+      document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+    }, 1000);
+  </script>
+</body>
+</html>
